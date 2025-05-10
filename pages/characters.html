@@ -10,32 +10,7 @@
   <h1>Star Wars Characters</h1>
   <div id="characters"></div>
   <a href="films.html">Go to Films</a>
-
-  <script>
-    // 1) Grab your container
-    const container = document.getElementById("characters");
-
-    // 2) Fetch a single character (UID=1) — per the LinkedIn example:
-    //    fetch('https://swapi.co/api/people/1/') :contentReference[oaicite:0]{index=0}
-    fetch("https://www.swapi.tech/api/people/1")
-      .then(resp => {
-        if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
-        return resp.json();
-      })
-      .then(data => {
-        // swapi.tech wraps the object under data.result.properties
-        const p = data.result.properties;
-        container.innerHTML = `
-          <h3>${p.name}</h3>
-          <p><strong>Height:</strong> ${p.height} cm</p>
-          <p><strong>Mass:</strong> ${p.mass} kg</p>
-          <p><strong>Gender:</strong> ${p.gender}</p>
-        `;
-      })
-      .catch(err => {
-        console.error("Fetch error:", err);
-        container.textContent = "❌ Failed to load character #1";
-      });
-  </script>
+  <script src="../script.js"></script>
 </body>
+</html>
 
