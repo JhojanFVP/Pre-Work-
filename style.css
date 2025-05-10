@@ -1,23 +1,23 @@
 body {
   font-family: Arial, sans-serif;
   margin: 20px;
-  background-color: #f4f4f4;
+  background: #f0f0f0;
 }
 
-a {
-  text-decoration: none;
+nav a {
   margin-right: 10px;
-  color: #3366cc;
+  color: #0055cc;
+  text-decoration: none;
 }
 
-h1, h3 {
-  color: #333;
+h1 {
+  color: #222;
 }
 
 div {
-  margin-bottom: 15px;
-  padding: 10px;
   background: #fff;
-  border-radius: 5px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  padding: 12px;
+  margin-bottom: 10px;
+  border-radius: 6px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
