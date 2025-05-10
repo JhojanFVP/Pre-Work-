@@ -4,24 +4,20 @@ body {
   background-color: #f4f4f4;
 }
 
-h1 {
-  color: #333;
-}
-
-nav a {
+a {
   text-decoration: none;
   margin-right: 10px;
   color: #3366cc;
 }
 
-nav a:hover {
-  text-decoration: underline;
+h1, h3 {
+  color: #333;
 }
 
 div {
-  margin-top: 10px;
-}
-
-div > h3 {
-  margin: 0 0 5px;
+  margin-bottom: 15px;
+  padding: 10px;
+  background: #fff;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
