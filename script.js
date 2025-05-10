@@ -1,53 +1,71 @@
+// Check current page
 document.addEventListener("DOMContentLoaded", () => {
   const path = window.location.pathname;
 
-  // CHARACTERS LIST
-  if (path.includes("characters.html")) {
-    fetch("https://www.swapi.tech/api/people/1")
-      .then(r => r.json())
-      .then(data => {
-        const container = document.getElementById("characters");
-        // The SWAPI.tech list response lives in data.result (an array)
-        data.result.forEach(person => {
-          const { name, gender, height, mass } = person.properties;
-          const card = document.createElement("div");
-          card.innerHTML = `
-            <h3>${name}</h3>
-            <p>Gender: ${gender}</p>
-            <p>Height: ${height} cm, Mass: ${mass} kg</p>
-          `;
-          container.appendChild(card);
-        });
-      })
-      .catch(err => {
-        console.error("Error fetching characters:", err);
-        document.getElementById("characters")
-                .textContent = "Failed to load character data.";
-      });
-  }
+  // ======= FILMS PAGE =======
+  if (path.includes("films.html")) {
+    const filmSection = document.getElementById("films");
 
-  // FILMS LIST
-  else if (path.includes("films.html")) {
-    fetch("https://www.swapi.tech/api/films/1")
-      .then(r => r.json())
-      .then(data => {
-        const container = document.getElementById("films/1");
-        data.result.forEach(film => {
-          const { title, director, release_date, opening_crawl } = film.properties;
-          const card = document.createElement("div");
-          card.innerHTML = `
-            <h3>${title}</h3>
-            <p><strong>Director:</strong> ${director}</p>
-            <p><strong>Release Date:</strong> ${release_date}</p>
-            <p>${opening_crawl}</p>
+    fetch("https://www.swapi.tech/api/films/")
+      .then(res => res.json())
+      .then(async data => {
+        const filmList = data.result;
+        let output = "";
+
+        for (let i = 0; i < filmList.length; i++) {
+          const filmUrl = filmList[i].url;
+
+          const filmDetailsRes = await fetch(filmUrl);
+          const filmData = await filmDetailsRes.json();
+          const f = filmData.result.properties;
+
+          // optional placeholder image logic
+          const imageList = [
+            "episodeIV.jpg", "episodeII.jpg", "episodeI.jpg",
+            "episodeIII.jpg", "episodeVI.jpg", "episodeV.jpg", "episodeVII.jpg"
+          ];
+          const imageSrc = `./assets/images/movies/${imageList[i % imageList.length]}`;
+
+          output += `
+            <div class="card" style="width: 16rem; margin-bottom: 16px;">
+              <img class="card-img-top" src="${imageSrc}" alt="${f.title}">
+              <div class="card-body">
+                <h5 class="card-title">${f.title}</h5>
+                <p><strong>Episode:</strong> ${f.episode_id}</p>
+                <p><strong>Director:</strong> ${f.director}</p>
+                <p><strong>Release Date:</strong> ${f.release_date}</p>
+                <p><strong>Opening Crawl:</strong><br>${f.opening_crawl}</p>
+                <h6>Characters:</h6>
+                ${f.characters.slice(0, 3).map(charURL => `<a href="#" class="char-link" data-url="${charURL}">${charURL}</a><br>`).join("")}
+              </div>
+            </div>
           `;
-          container.appendChild(card);
+        }
+
+        filmSection.innerHTML = output;
+
+        // Add click handlers for character links
+        const charLinks = document.querySelectorAll(".char-link");
+        charLinks.forEach(link => {
+          link.addEventListener("click", event => {
+            event.preventDefault();
+            const charURL = link.getAttribute("data-url");
+
+            fetch(charURL)
+              .then(res => res.json())
+              .then(data => {
+                const c = data.result.properties;
+                alert(`${c.name}\nHeight: ${c.height} cm\nBirth Year: ${c.birth_year}`);
+              })
+              .catch(err => {
+                alert("Failed to load character.");
+              });
+          });
         });
       })
       .catch(err => {
-        console.error("Error fetching films:", err);
-        document.getElementById("films")
-                .textContent = "Failed to load film data.";
+        filmSection.innerHTML = "<p>Failed to load films.</p>";
+        console.error(err);
       });
   }
 });
