@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // CHARACTERS LIST
   if (path.includes("characters.html")) {
-    fetch("https://www.swapi.tech/api/people/")
+    fetch("https://www.swapi.tech/api/people/1")
       .then(r => r.json())
       .then(data => {
         const container = document.getElementById("characters");
@@ -28,10 +28,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // FILMS LIST
   else if (path.includes("films.html")) {
-    fetch("https://www.swapi.tech/api/films/")
+    fetch("https://www.swapi.tech/api/films/1")
       .then(r => r.json())
       .then(data => {
-        const container = document.getElementById("films");
+        const container = document.getElementById("films/1");
         data.result.forEach(film => {
           const { title, director, release_date, opening_crawl } = film.properties;
           const card = document.createElement("div");
