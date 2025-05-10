@@ -1,48 +1,54 @@
 document.addEventListener("DOMContentLoaded", () => {
   const path = window.location.pathname;
 
-  // Characters page
+  // CHARACTERS LIST
   if (path.includes("characters.html")) {
-    fetch("https://swapi.tech/api/people/")
-      .then(response => response.json())
+    fetch("https://www.swapi.tech/api/people/")
+      .then(r => r.json())
       .then(data => {
         const container = document.getElementById("characters");
-        data.results.forEach(person => {
-          const characterCard = document.createElement("div");
-          characterCard.innerHTML = `
-            <h3>${person.name}</h3>
-            <p>Click for details</p>
+        // The SWAPI.tech list response lives in data.result (an array)
+        data.result.forEach(person => {
+          const { name, gender, height, mass } = person.properties;
+          const card = document.createElement("div");
+          card.innerHTML = `
+            <h3>${name}</h3>
+            <p>Gender: ${gender}</p>
+            <p>Height: ${height} cm, Mass: ${mass} kg</p>
           `;
-          container.appendChild(characterCard);
+          container.appendChild(card);
         });
       })
-      .catch(error => {
-        console.error("Error fetching characters:", error);
-        document.getElementById("characters").textContent =
-          "Failed to load character data.";
+      .catch(err => {
+        console.error("Error fetching characters:", err);
+        document.getElementById("characters")
+                .textContent = "Failed to load character data.";
       });
   }
-  // Films page
+
+  // FILMS LIST
   else if (path.includes("films.html")) {
-    fetch("https://swapi.tech/api/films/")
-      .then(response => response.json())
+    fetch("https://www.swapi.tech/api/films/")
+      .then(r => r.json())
       .then(data => {
         const container = document.getElementById("films");
         data.result.forEach(film => {
-          const filmCard = document.createElement("div");
-          filmCard.innerHTML = `
-            <h3>${film.properties.title}</h3>
-            <p><strong>Director:</strong> ${film.properties.director}</p>
-            <p><strong>Release Date:</strong> ${film.properties.release_date}</p>
-            <p>${film.properties.opening_crawl}</p>
+          const { title, director, release_date, opening_crawl } = film.properties;
+          const card = document.createElement("div");
+          card.innerHTML = `
+            <h3>${title}</h3>
+            <p><strong>Director:</strong> ${director}</p>
+            <p><strong>Release Date:</strong> ${release_date}</p>
+            <p>${opening_crawl}</p>
           `;
-          container.appendChild(filmCard);
+          container.appendChild(card);
         });
       })
-      .catch(error => {
-        console.error("Error fetching films:", error);
-        document.getElementById("films").textContent =
-          "Failed to load film data.";
+      .catch(err => {
+        console.error("Error fetching films:", err);
+        document.getElementById("films")
+                .textContent = "Failed to load film data.";
       });
   }
 });
+
