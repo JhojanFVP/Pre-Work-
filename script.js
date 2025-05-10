@@ -18,10 +18,10 @@ document.addEventListener("DOMContentLoaded", () => {
       })
       .catch(error => {
         console.error("Error fetching characters:", error);
-        document.getElementById("characters").textContent = "Failed to load character data.";
+        document.getElementById("characters").textContent =
+          "Failed to load character data.";
       });
   }
-
   // Films page
   else if (path.includes("films.html")) {
     fetch("https://swapi.tech/api/films")
@@ -41,7 +41,8 @@ document.addEventListener("DOMContentLoaded", () => {
       })
       .catch(error => {
         console.error("Error fetching films:", error);
-        document.getElementById("films").textContent = "Failed to load film data.";
+        document.getElementById("films").textContent =
+          "Failed to load film data.";
       });
   }
 });
