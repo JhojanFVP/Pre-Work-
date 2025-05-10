@@ -3,8 +3,25 @@ body {
   margin: 20px;
   background-color: #f4f4f4;
 }
-a {
+
+h1 {
+  color: #333;
+}
+
+nav a {
   text-decoration: none;
   margin-right: 10px;
   color: #3366cc;
+}
+
+nav a:hover {
+  text-decoration: underline;
+}
+
+div {
+  margin-top: 10px;
+}
+
+div > h3 {
+  margin: 0 0 5px;
 }
