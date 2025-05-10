@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Characters page
   if (path.includes("characters.html")) {
-    fetch("https://swapi.tech/api/people")
+    fetch("https://swapi.tech/api/people/")
       .then(response => response.json())
       .then(data => {
         const container = document.getElementById("characters");
@@ -24,7 +24,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
   // Films page
   else if (path.includes("films.html")) {
-    fetch("https://swapi.tech/api/films")
+    fetch("https://swapi.tech/api/films/")
       .then(response => response.json())
       .then(data => {
         const container = document.getElementById("films");
