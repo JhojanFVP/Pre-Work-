@@ -15,6 +15,7 @@ This project is a simple front-end website that fetches and displays data from t
 
 1. Clone or download the repository:
 2. Open the Index Browser
-
+3. Click Characters or Films to explore!
+   
  https://github.com/JhojanFVP/Pre-Work-.git
  
